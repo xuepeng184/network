@@ -1,0 +1,23 @@
+{
+  "id": "3655561",
+  "name": "no name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1128946",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "18166528",
+      "name": "衣服,服装",
+      "font_class": "clothes",
+      "unicode": "e8c7",
+      "unicode_decimal": 59591
+    }
+  ]
+}
