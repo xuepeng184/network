@@ -31,6 +31,7 @@ export default {
     width: 1400px;
     margin: 0 auto;
     position: relative;
+    display: flex;
     top: 60px;
     .left{
       width: 200px;

@@ -3,7 +3,7 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo">
-      <el-menu-item index="21">
+      <el-menu-item index="1">
         <span slot="title">发现音乐</span>
       </el-menu-item>
       <el-menu-item index="2">
@@ -32,6 +32,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
-
+.el-menu-item.is-active{
+  background-color: #f8f8f9;
+  color:#000;
+  font-size: 17px;
+  font-weight: 600;
+}
+.el-menu-item:hover{
+  background-color: #f8f8f9;
+}
 </style>
