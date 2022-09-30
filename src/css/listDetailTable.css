@@ -1,0 +1,30 @@
+.el-table .cell {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+  line-height: 23px;
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+.el-table__row {
+  height: 35px;
+}
+
+
+.el-table .el-table__cell {
+  padding: 0;
+}
+
+.el-table th.el-table__cell>.cell {
+  height: 35px;
+  line-height: 30px;
+}
+
+.el-table td.el-table__cell div {
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

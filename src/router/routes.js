@@ -29,6 +29,23 @@ export default [{
   path:'/login',
   name:'login',
   component:()=>import('@/views/Login/Login')
+},{
+  path:'/playlistdetail',
+  name:'PlayListDetail',
+  component:()=>import('@/views/PlayListDetail/PlayListDetail'),
+  children: [{
+    path:'/playlistdetail',
+    redirect:'/playlistdetail/detaillist'
+  },{
+    path:'detaillist',
+    component:()=>import('@/views/PlayListDetail/DetailList')
+  },{
+    path:'detailcomment',
+    component:()=>import('@/views/PlayListDetail/DetailComment')
+  },{
+    path:'detailcollect',
+    component:()=>import('@/views/PlayListDetail/DetailCollect')
+  }]
 },
 // 一级路由的重定向
 {

@@ -15,6 +15,7 @@
     <div class="recommend_song">
       <MyRecommend></MyRecommend>
     </div>
+    <div class="bottom"></div>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ export default {
     };
   },
   mounted() {
+    sessionStorage.setItem('navActive',this.$route.path)
     this.getBannerList();
   },
   methods: {
@@ -66,5 +68,8 @@ export default {
 .recommend_song{
   position: relative;
   left: 30px;
+}
+.bottom{
+  height: 110px;
 }
 </style>

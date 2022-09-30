@@ -1,7 +1,7 @@
 <template>
   <div class="left_nav_menu">
     <el-menu
-      default-active="2"
+      default-active="1"
       class="el-menu-vertical-demo">
       <el-menu-item index="1">
         <span slot="title">发现音乐</span>

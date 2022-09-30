@@ -24,7 +24,7 @@ export default {
 
 <style scoped lang="less">
   body{
-    margin: 0;
+    margin-right: 0px;
     padding: 0;
   }
   .main{

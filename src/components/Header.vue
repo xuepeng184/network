@@ -3,7 +3,7 @@
     <!-- 这是内容的中间主体区域 -->
     <div class="main">
       <!-- 这是logo部分 -->
-      <div class="logo">
+      <div class="logo" @click="goHome">
         <div class="imglogo"></div>
       </div>
       <!-- 这是搜索的部分 -->
@@ -53,7 +53,7 @@ export default {
   },
   created(){
     window.addEventListener('beforeunload',()=>{
-      sessionStorage.removeItem('myCookie')
+      // sessionStorage.removeItem('myCookie')
     })
   },
   methods: {
@@ -70,6 +70,7 @@ export default {
       sessionStorage.removeItem('myCookie')
       this.userStatus={};
       this.profile={};
+      this.$router.go(0)
     },
     //通过获得二维码key生成二维码图的base64编码
     async getCode() {
@@ -115,6 +116,9 @@ export default {
         }
       })
     },
+    goHome(){
+      this.$router.push('/home')
+    }
   },
   components: {
     Login,
@@ -139,6 +143,7 @@ export default {
     .logo {
       width: 200px;
       overflow: hidden;
+      cursor: pointer;
       .imglogo {
         width: 200px;
         height: 60px;

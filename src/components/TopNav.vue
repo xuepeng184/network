@@ -4,6 +4,7 @@
       class="el-menu-demo"
       mode="horizontal"
       :router='true'
+      :default-active="defaultActive"
     >
       <el-menu-item index="/home/recommend">个性推荐</el-menu-item>
       <el-menu-item index="/home/customized">专属定制</el-menu-item>
@@ -17,7 +18,15 @@
 
 <script>
 export default {
-  name:'TopNav'
+  name:'TopNav',
+  data() {
+    return {
+      defaultActive:''
+    }
+  },
+  created(){
+    this.defaultActive=sessionStorage.getItem('navActive')==undefined?this.$route.path:sessionStorage.getItem('navActive');
+  }
 };
 </script>
 

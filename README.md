@@ -1,24 +1,13 @@
 # network
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 还需改善
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 问题：刷新后用户信息清除  解决方法：在`vuex`中发请求存储数据
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### 问题：还没有添加热搜榜
+
+
