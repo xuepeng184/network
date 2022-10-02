@@ -1,5 +1,7 @@
 <template>
-  <div>收藏者</div>
+  <div class="collector">
+    
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.collector{
+  width: 1120px;
+}
 </style>

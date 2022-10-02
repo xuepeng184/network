@@ -63,7 +63,7 @@
             >歌曲列表</el-menu-item
           >
           <el-menu-item index="/playlistdetail/detailcomment"
-            >评论(50)</el-menu-item
+            >评论({{commentLength}})</el-menu-item
           >
           <el-menu-item index="/playlistdetail/detailcollect"
             >收藏者</el-menu-item
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import {reqGetListComment} from '@/api/playListDetail'
 import moment from "moment";
 import {
   reqGetWholeList,
@@ -106,14 +107,17 @@ export default {
       collectNum: "",
       //导航默认的路由
       defaultActive: "/playlistdetail/detaillist",
+      //评论数
+      commentLength:0
     };
   },
   mounted() {
     this.defaultActive = sessionStorage.getItem("listActive");
     this.getListDetail();
+    this.getCommentLength()
   },
   destroyed() {
-    sessionStorage.removeItem("listId");
+    // sessionStorage.removeItem("listId");
   },
   methods: {
     async getListDetail() {
@@ -162,6 +166,10 @@ export default {
     changeActive(index) {
       this.defaultActive = index;
     },
+    async getCommentLength(){
+      let result=await reqGetListComment(this.id)
+      this.commentLength=result.total
+    }
   },
 };
 </script>
@@ -173,7 +181,7 @@ export default {
   .head {
     display: flex;
     height: 185px;
-    width: 100%;
+    overflow: hidden;
     margin-left: 30px;
     margin-top: 30px;
     .head_img {
@@ -312,7 +320,6 @@ export default {
     }
   }
 }
-
 //重置el-menu的样式
 .el-menu {
   border-bottom: none;

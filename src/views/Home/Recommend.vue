@@ -5,7 +5,7 @@
       <el-carousel :interval="5000" type="card" height="200px" arrow="never">
         <el-carousel-item
           v-for="(item) in bannerList"
-          :key="item.targetId"
+          :key="item.imageUrl"
         >
           <img :src="item.imageUrl" />
         </el-carousel-item>
@@ -44,6 +44,7 @@ export default {
         this.bannerList = result.banners;
       }
     },
+    
   },
 };
 </script>

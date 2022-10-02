@@ -27,3 +27,24 @@ export const reqGetListDetail=(id)=>{
     url:`/playlist/detail/dynamic?id=${id}`
   })
 }
+
+//获取歌曲url
+export const reqGetSongUrl=(songId)=>{
+  return requests({
+    url:`/song/url?id=${songId}`
+  })
+}
+
+//获取歌曲歌词
+export const reqGetSongLyric=(songId)=>{
+  return requests({
+    url:`/lyric?id=${songId}`
+  })
+}
+
+//获取歌单评论
+export const reqGetListComment=(id)=>{
+  return requests({
+    url:`/comment/playlist?id=${id}&limit=50`
+  })
+}

@@ -17,8 +17,9 @@ export const reqGetList=(limit,cat,offset)=>{
 }
 
 // 精品歌单
-export function reqGetFineList(limit, cat) {
+export const reqGetFineList=(limit, cat) =>{
   return requests({
       url: `/top/playlist/highquality?limit=${limit}&cat=${cat}`
   })
 }
+

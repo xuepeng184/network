@@ -2,9 +2,9 @@
   <div class="table">
     <el-table
       stripe
-      style="width: 100%"
+      style="width: 1206px"
       :data="songList"
-      :row-style="{ height: '35px' }"
+      @row-click="getSongAbout"
     >
       <el-table-column width="30"> </el-table-column>
       <el-table-column type="index" width="50"> </el-table-column>
@@ -21,7 +21,7 @@
         >
         <i class="iconfont">&#xe6d1;</i>
       </el-table-column>
-      <el-table-column prop="name" label="标题" width="450"> </el-table-column>
+      <el-table-column prop="name" label="标题" width="400"> </el-table-column>
       <el-table-column prop="address" label="歌手" width="210">
         <template slot-scope="scope">
             <div>{{scope.row.ar[0].name}}</div>
@@ -44,14 +44,21 @@
 <script>
 import moment from 'moment';
 import momentDurationFormatSetup from "moment-duration-format";
-import {reqGetAllSong} from '@/api/playListDetail';
+import {reqGetAllSong,reqGetSongUrl,reqGetSongLyric} from '@/api/playListDetail';
 export default {
   name:'DetailList',
   data() {
     return {
       //全部歌曲
       songList:[],
-      id:''
+      //歌单id
+      id:0,
+      //歌曲id
+      songId:0,
+      //歌曲url
+      songUrl:'',
+      //歌曲歌词
+      songLyric:''
     }
   },
   created(){
@@ -59,7 +66,6 @@ export default {
   },
   mounted(){
     this.id=sessionStorage.getItem('listId')
-    
     this.getAllSong()
   },
   methods:{
@@ -72,6 +78,25 @@ export default {
           item.dt = moment.duration(item.dt).format("mm:ss", { trim: false });
         })
       }
+    },
+    async getSongAbout(row){
+      this.$bus.$emit('songAbout',row)
+      this.$bus.$emit('reset')
+      this.songId=row.id
+      let result=await reqGetSongUrl(this.songId)
+      console.log('歌曲url',result);
+      if(result.code==200){
+      this.songUrl=result.data[0].url
+      let lyricResult=await reqGetSongLyric(this.songId)
+      console.log('歌曲歌词',lyricResult);
+      if(lyricResult.code==200){
+        this.songLyric=lyricResult.lrc.lyric
+        this.$bus.$emit('sendSongLyric',this.songLyric)
+        this.$bus.$emit('sendSongUrl',this.songUrl)
+      }
+        
+      }
+      
     }
   }
 }
@@ -80,4 +105,7 @@ export default {
 <style scoped>
 /* 重置el-table的样式 */
 @import url("@/css/listDetailTable.css");
+.table{
+  padding-bottom: 110px;
+}
 </style>

@@ -157,6 +157,7 @@ export default {
         }
       }
     },
+    //去往歌单界面
     goPlayList(id) {
       sessionStorage.setItem('listId',id)
       this.$router.push({

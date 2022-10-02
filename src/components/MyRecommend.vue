@@ -72,13 +72,11 @@ export default {
         return result;
       }
     },
-    // 前往歌单详情页
-    goPlayList(id){
-      this.$router.push({
-        name:'PlayListDetail',
-        query:{id:id}
-      })
-    }
+    //去往歌单界面
+    goPlayList(id) {
+      sessionStorage.setItem('listId',id)
+      this.$router.push('/playlistdetail');
+    },
   },
   computed: {},
 };

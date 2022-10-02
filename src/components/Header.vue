@@ -117,6 +117,7 @@ export default {
       })
     },
     goHome(){
+      sessionStorage.setItem('navActive','/home/recommend')
       this.$router.push('/home')
     }
   },

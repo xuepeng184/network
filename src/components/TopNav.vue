@@ -26,6 +26,11 @@ export default {
   },
   created(){
     this.defaultActive=sessionStorage.getItem('navActive')==undefined?this.$route.path:sessionStorage.getItem('navActive');
+  },
+  watch:{
+    $route(now){
+      this.defaultActive=now.path
+    }
   }
 };
 </script>
