@@ -48,3 +48,10 @@ export const reqGetListComment=(id)=>{
     url:`/comment/playlist?id=${id}&limit=50`
   })
 }
+
+//获取歌单收藏者
+export const reqGetCollector=(id)=>{
+  return requests({
+    url:`/playlist/subscribers?id=${id}&limit=60`
+  })
+}

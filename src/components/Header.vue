@@ -17,12 +17,12 @@
       <div class="user">
         <!-- 这里的i会切换用户头像 -->
         <div class="user_img" v-show="!isShow">
-          <img :src="profile.avatarUrl" alt="">
+          <img :src="profile.avatarUrl" alt="" />
         </div>
         <i class="iconfont" v-show="isShow">&#xe601;</i>
         <!-- 这里切换请登录还有用户名 -->
         <span @click="getCode" v-show="isShow">请登录</span>
-        <span v-show="!isShow">{{profile.nickname}}</span>
+        <span v-show="!isShow">{{ profile.nickname }}</span>
         <span v-show="!isShow" @click="logOut">退出登录</span>
         <i class="iconfont yifu">&#xe8c7;</i>
       </div>
@@ -34,7 +34,13 @@
 
 <script>
 import Login from "../views/Login/Login.vue";
-import { reqGetCodeKey, reqCreateCode, reqGetCodeStatus,reqGetUserStatus,reqLogOut } from "@/api/login";
+import {
+  reqGetCodeKey,
+  reqCreateCode,
+  reqGetCodeStatus,
+  reqGetUserStatus,
+  reqLogOut,
+} from "@/api/login";
 export default {
   name: "Header",
   data() {
@@ -42,35 +48,46 @@ export default {
       uniKey: "",
       qrImg: "",
       //检查登录是否成功的定时器
-      timer:null,
-      myCookie:'',
+      timer: null,
+      myCookie: "",
       //登录状态
-      userStatus:{},
+      userStatus: {},
       //用户相关信息
-      profile:{},
-      isShow:true,
+      profile: {},
+      isShow: true,
     };
   },
-  created(){
-    window.addEventListener('beforeunload',()=>{
-      // sessionStorage.removeItem('myCookie')
-    })
+  async created() {
+    this.myCookie = sessionStorage.getItem("myCookie");
+    if (this.myCookie) {
+      this.isShow = !this.isShow;
+      //再次获取用户信息
+      let statusResult = await reqGetUserStatus(this.myCookie);
+      console.log("登录状态", statusResult);
+      if (statusResult.data.code == 200) {
+        this.userStatus = statusResult.data.account;
+        this.profile = statusResult.data.profile;
+        this.$refs.login.$el.style.display = "none";
+      }
+    } else {
+      this.isShow = true;
+    }
   },
   methods: {
     //清除定时器
-    clearTimer(){
+    clearTimer() {
       clearInterval(this.timer);
-      this.timer=null
+      this.timer = null;
     },
     //退出登录
-    async logOut(){
-      let result=await reqLogOut()
-      console.log('退出登录',result);
-      this.isShow=true
-      sessionStorage.removeItem('myCookie')
-      this.userStatus={};
-      this.profile={};
-      this.$router.go(0)
+    async logOut() {
+      let result = await reqLogOut();
+      console.log("退出登录", result);
+      this.isShow = true;
+      sessionStorage.removeItem("myCookie");
+      this.userStatus = {};
+      this.profile = {};
+      this.$router.go(0);
     },
     //通过获得二维码key生成二维码图的base64编码
     async getCode() {
@@ -86,40 +103,40 @@ export default {
         this.qrImg = imgResult.data.qrimg;
       }
       //监测二维码的状态码 800 为二维码过期,801 为等待扫码,802 为待确认,803 为授权登录成功(803 状态码下会返回 cookies)
-      await reqGetCodeStatus(this.uniKey).then(res=>{
-        console.log('状态码',res);
-        if(res.code==801){
+      await reqGetCodeStatus(this.uniKey).then((res) => {
+        console.log("状态码", res);
+        if (res.code == 801) {
           //每隔一秒调用一次监测状态的函数
-           this.timer=setInterval(async ()=>{
-            
-            await reqGetCodeStatus(this.uniKey).then(async (res)=>{
-              console.log('状态码',res);
-              if(res.code==803){
-                console.log('状态码',res);
+          this.timer = setInterval(async () => {
+            await reqGetCodeStatus(this.uniKey).then(async (res) => {
+              console.log("状态码", res);
+              if (res.code == 803) {
+                console.log("状态码", res);
                 clearInterval(this.timer);
-                this.timer=null;
-                this.myCookie=res.cookie
+                this.timer = null;
+                this.myCookie = res.cookie;
                 //展示用户名，不展示请登录
-                this.isShow=false
+                this.isShow = false;
                 //保存在会话存储中
-                sessionStorage.setItem('myCookie',this.myCookie)
-                let statusResult=await reqGetUserStatus(this.myCookie)
-                console.log('登录状态',statusResult);
-                if(statusResult.data.code==200){
-                  this.userStatus=statusResult.data.account
-                  this.profile=statusResult.data.profile
+                sessionStorage.setItem("myCookie", this.myCookie);
+                let statusResult = await reqGetUserStatus(this.myCookie);
+                console.log("登录状态", statusResult);
+                if (statusResult.data.code == 200) {
+                  this.userStatus = statusResult.data.account;
+                  this.profile = statusResult.data.profile;
                   this.$refs.login.$el.style.display = "none";
+                  this.$router.go(0)
                 }
               }
-            })
-          },1500)
+            });
+          }, 1500);
         }
-      })
+      });
     },
-    goHome(){
-      sessionStorage.setItem('navActive','/home/recommend')
-      this.$router.push('/home')
-    }
+    goHome() {
+      sessionStorage.setItem("navActive", "/home/recommend");
+      this.$router.push("/home");
+    },
   },
   components: {
     Login,
@@ -172,7 +189,7 @@ export default {
       line-height: 60px;
       height: 60px;
       position: relative;
-      .user_img{
+      .user_img {
         width: 25px;
         height: 25px;
         position: absolute;
@@ -180,7 +197,7 @@ export default {
         border-radius: 50%;
         left: -33px;
         top: 17px;
-        img{
+        img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
@@ -197,7 +214,7 @@ export default {
         font-size: 13px;
         cursor: pointer;
       }
-      span:nth-of-type(3){
+      span:nth-of-type(3) {
         margin-left: 8px;
       }
       .yifu {
