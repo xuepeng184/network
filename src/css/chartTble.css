@@ -1,0 +1,27 @@
+/* 重置排行榜中的表格样式 */
+
+.el-table tr{
+  height: 34px ;
+}
+
+.el-table tr td {
+  height: 34px;
+  font-size: 13px;
+}
+/* 设置移除省略号 */
+.el-table td.el-table__cell div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.el-table {
+  cursor: pointer;
+  border-top: 1px solid #EBEEF5;
+  margin-top: 0px ;
+}
+
+.el-table .el-table__cell{
+  padding: 0;
+}

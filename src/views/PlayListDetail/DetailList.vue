@@ -79,9 +79,9 @@ export default {
         })
       }
     },
+    //获取并传递相关歌曲信息给app组件的播放器
     async getSongAbout(row){
       this.$bus.$emit('songAbout',row)
-      this.$bus.$emit('reset')
       this.songId=row.id
       let result=await reqGetSongUrl(this.songId)
       console.log('歌曲url',result);
