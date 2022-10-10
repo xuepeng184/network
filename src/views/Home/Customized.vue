@@ -78,9 +78,9 @@ export default {
     },
     // 前往歌单详情页
     goPlayList(id) {
+      sessionStorage.setItem('listId',id)
       this.$router.push({
-        name: "PlayListDetail",
-        query: { id: id },
+        path:'/playlistdetail'
       });
     },
   },

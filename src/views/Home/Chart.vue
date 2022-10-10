@@ -111,7 +111,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import url("@/css/chartTble.css");
 .chart {
   width: 1130px;

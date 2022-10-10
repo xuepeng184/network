@@ -106,6 +106,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .recommend_item {
+      cursor: pointer;
       margin-top: 10px;
       padding: 0 10px;
       width: 215px;

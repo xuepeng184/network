@@ -56,7 +56,14 @@ export default {
       this.music.artist = res.ar[0].name;
       this.music.pic = res.al.picUrl;
     });
+    this.$bus.$on("songAboutFromLatestSong", (res) => {
+      this.songAbout = res;
+      this.music.title = res.name;
+      this.music.artist = res.artists[0].name;
+      this.music.pic = res.album.picUrl;
+    });
   },
+
 };
 </script>
 

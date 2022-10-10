@@ -1,0 +1,24 @@
+.el-table tr {
+  height: 78px !important;
+  font-size: 13px;
+}
+
+.el-table tr:hover {
+  cursor: pointer;
+}
+
+.el-table td.el-table__cell  {
+  padding: 12px 0;
+}
+
+.el-table td.el-table__cell div {
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.el-table {
+  border-top: 1px solid #EBEEF5;
+  margin-top: 20px;
+}

@@ -2,7 +2,7 @@
   <div class="login" ref="login">
     <div class="head">
       <span>登录</span>
-      <span @click="closeLogin">x</span>
+      <span @click="closeLogin">×</span>
     </div>
     <div class="main">
       <div class="imgLogin">
@@ -44,7 +44,7 @@ export default {
   height: 370px;
   width: 550px;
   border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 10px;
   border-top: transparent;
   position: absolute;
   top: 150px;
@@ -54,17 +54,22 @@ export default {
   display: none;
   background-color: #fff;
   .head {
-    height: 50px;
+    height: 40px;
     background-color: #000;
     color: #fff;
-    line-height: 50px;
+    line-height: 40px;
     display: flex;
     padding: 0 10px;
     justify-content: space-between;
-    border-radius: 7px;
+    border-radius: 10px;
+    span:nth-of-type(1){
+      font-size: 14px;
+      font-weight: 600;
+    }
     span:nth-of-type(2){
       cursor: pointer;
       font-size: 20px;
+      color:#888888
     }
   }
   .main {

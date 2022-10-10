@@ -3,7 +3,7 @@
     <el-menu
       class="el-menu-demo"
       mode="horizontal"
-      :router='true'
+      :router="true"
       :default-active="defaultActive"
     >
       <el-menu-item index="/home/recommend">个性推荐</el-menu-item>
@@ -18,27 +18,37 @@
 
 <script>
 export default {
-  name:'TopNav',
+  name: "TopNav",
   data() {
     return {
-      defaultActive:''
-    }
+      defaultActive: "",
+    };
   },
-  created(){
-    this.defaultActive=sessionStorage.getItem('navActive')==undefined?this.$route.path:sessionStorage.getItem('navActive');
+  created() {
+    this.defaultActive =
+      sessionStorage.getItem("navActive") == undefined
+        ? this.$route.path
+        : sessionStorage.getItem("navActive");
   },
-  watch:{
-    $route(now){
-      this.defaultActive=now.path
-    }
-  }
+  watch: {
+    $route(now) {
+      if (
+        now.path == "/home/latestsong/newsong" ||
+        now.path == "/home/latestsong/newdisc"
+      ) {
+        this.defaultActive = "/home/latestsong";
+      } else {
+        this.defaultActive = now.path;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
-  .el-menu-item.is-active{
-    border-bottom: 2px solid #ff0000;
-    font-weight: 600;
-    font-size: 17px;
-  }
+.el-menu-item.is-active {
+  border-bottom: 2px solid #ff0000;
+  font-weight: 600;
+  font-size: 17px;
+}
 </style>

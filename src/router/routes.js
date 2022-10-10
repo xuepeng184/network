@@ -23,7 +23,24 @@ export default [{
     component:()=>import('@/views/Home/Singer')
   },{
     path:'latestsong',
-    component:()=>import('@/views/Home/LatestSong')
+    component:()=>import('@/views/Home/LatestSong'),
+    children:[
+      {
+        // 重定向
+        path:'/home/latestsong',
+        redirect:'/home/latestsong/newsong'
+      },
+      {
+        path:'newdisc',
+        component:()=>import("@/components/latestSongOfNewDisc"),
+        meta:{isShow:false}
+      },
+      {
+        path:'newsong',
+        component:()=>import("@/components/latestSongOfNewSong"),
+        meta:{isShow:true}
+      }
+    ]
   }]
 }, {
   path:'/login',

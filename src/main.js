@@ -1,8 +1,17 @@
 import Vue from 'vue'
 
-//全部引入element-ui
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+//按需引入element-ui
+import {Menu,Table, Pagination, Carousel,Input,MenuItem,CarouselItem,TableColumn} from 'element-ui';
+Vue.use(Menu)
+Vue.use(Table)
+Vue.use(Pagination)
+Vue.use(Carousel)
+Vue.use(Input)
+Vue.use(MenuItem)
+Vue.use(CarouselItem)
+Vue.use(TableColumn)
+
+
 
 import App from './App.vue'
 import router from './router'
@@ -16,7 +25,6 @@ import myPicture from '@/assets/default.png'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
 //实现图片懒加载
 Vue.use(VueLazyload,{
   loading:myPicture
