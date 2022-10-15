@@ -9,9 +9,31 @@
       <!-- 这是搜索的部分 -->
       <div class="search">
         <el-input
+          v-model="inputValue"
           placeholder="请输入内容"
           prefix-icon="el-icon-search"
+          @focus="showHot"
+          @change="changeHot"
+          @blur="hidHot"
         ></el-input>
+        <!-- 这是隐藏的热搜榜 -->
+        <div class="search_hot" ref="hot">
+          <div class="hot_header">
+            热搜榜
+          </div>
+          <div class="hot_main" v-for="(item,index) in hotSearch" :key="item.iconUrl" :class="{active:index in [0,1,2]}">
+            <div class="hot_main_left">
+              {{index+1}}
+            </div>
+            <div class="hot_main_right">
+              <div class="hot_right_top">
+                <span class="hot_name">{{item.searchWord}}</span> 
+                <span class="hot_number">{{item.score}}</span>
+              </div>
+              <p class="hot_describe" >{{item.content}}</p>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 这是用户名等部分 -->
       <div class="user">
@@ -33,6 +55,7 @@
 </template>
 
 <script>
+import {reqGetHotSearch} from '@/api/home';
 import Login from "../views/Login/Login.vue";
 import {
   reqGetCodeKey,
@@ -55,6 +78,10 @@ export default {
       //用户相关信息
       profile: {},
       isShow: true,
+      //热搜列表
+      hotSearch:[],
+      isHowDes:false,
+      inputValue:''
     };
   },
   async created() {
@@ -72,6 +99,9 @@ export default {
     } else {
       this.isShow = true;
     }
+  },
+  mounted(){
+    this.getHotSearch()
   },
   methods: {
     //清除定时器
@@ -133,10 +163,32 @@ export default {
         }
       });
     },
+    //点击logo回到主页面
     goHome() {
       sessionStorage.setItem("navActive", "/home/recommend");
       this.$router.push("/home");
     },
+    //获得热搜列表详细信息
+    async getHotSearch(){
+      let result=await reqGetHotSearch()
+      console.log('热搜列表',result);
+      this.hotSearch=result.data
+    },
+    //搜索框获得焦点的事件
+    showHot(){
+      this.$refs.hot.style.display='block'
+    },
+    //blur事件触发
+    hidHot(){
+      this.$refs.hot.style.display='none'
+    },
+    changeHot(){
+      this.$refs.hot.style.display='none'
+      this.$router.push({
+        path:'/search',
+        query:{inputValue:this.inputValue}
+      })
+    }
   },
   components: {
     Login,
@@ -181,6 +233,94 @@ export default {
         position: absolute;
         left: 100px;
         top: 15px;
+      }
+      .search_hot{
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        width: 350px;
+        height: 600px;
+        overflow-y: scroll;
+        top: 65px;
+        left: 30px;
+        border-radius: 5px;
+        box-shadow: -3px 3px 5px #eee;
+        &::-webkit-scrollbar{
+          width: 5px;
+        }
+        &::-webkit-scrollbar-thumb{
+          background-color: #e0e0e0;
+        }
+        &::-webkit-scrollbar-track{
+          background-color: #e0e0e0;
+        }
+        .hot_header{
+          height: 40px;
+          line-height: 40px;
+          font-size: 14px;
+          color: #8d8d8d;
+          padding-left: 20px;
+        }
+        .hot_main{
+          display: flex;
+          height: 53px;
+          &:hover{
+            background-color: #f2f2f2;
+            cursor: pointer;
+          }
+          .hot_main_left{
+            width: 50px;
+            height: 53px;
+            text-align: center;
+            line-height: 53px;
+            opacity: .6;
+            color: #dedede;
+          }
+          .hot_main_left.active{
+            color: #ff3d3d;
+            opacity: 1;
+          }
+          .hot_main_right{
+            width: 280px;
+            height: 53px;
+            font-size: 12px;
+            p{
+              margin: 0;
+            }
+            .hot_right_top{
+              margin-top: 8px;
+              margin-bottom: 8px;
+              .hot_name{
+              opacity: 0.7;
+              margin-top: 7px;
+            }
+            .hot_number{
+              margin-left: 10px;
+              color: #dedede;
+            }
+            }
+            .hot_describe{
+              width: 100%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              opacity: 0.5;
+            }
+          }
+        }
+        .hot_main.active{
+          .hot_main_left{
+            color: #ff3d3d;
+            opacity: 1;
+          }
+          .hot_main_right{
+            .hot_right_top{
+              .hot_name{
+                font-weight: 550;
+              }
+            }
+          }       
+        }
       }
     }
     .user {
@@ -233,6 +373,10 @@ export default {
   border: none;
   color: #fff;
   font-size: 12px;
+  &::-webkit-input-placeholder{
+    color: #fff;
+    opacity: 0.6;
+  }
 }
 .el-input /deep/ .el-input__prefix {
   top: -5px;

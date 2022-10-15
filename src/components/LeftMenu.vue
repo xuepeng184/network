@@ -41,4 +41,8 @@ export default {
 .el-menu-item:hover{
   background-color: #f8f8f9;
 }
+ .el-menu-item{
+  height: 35px; 
+  line-height: 35px;
+}
 </style>

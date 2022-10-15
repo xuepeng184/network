@@ -25,3 +25,10 @@ export const reqGetRecommendList=(cookie)=>{
     }
   })
 }
+
+//获取热搜列表(详细状态)
+export const reqGetHotSearch=()=>{
+  return requests({
+    url:'/search/hot/detail'
+  })
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="newDisc">
     <div class="disc_left">
-      <p v-show="showWeek">本周新碟</p>
+      <p v-show="showWeek" class="p4">本周新碟</p>
       <div v-show="!showWeek">
         <p class="p1">{{ nowMonth }}</p>
         <i class="p3">/</i>
@@ -32,6 +32,8 @@ export default {
       nowYear: "",
       nowMonth: "",
       showWeek: true,
+      monthList:[],
+      monthList:[]
     };
   },
   created(){
@@ -50,10 +52,12 @@ export default {
         //页面高度
         let documentHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
         // console.log(windowHeight,myScrollTop,documentHeight);
-        if(windowHeight + myScrollTop >= (documentHeight-150)){
-            this.end+=30
-            this.GetLatestDisc()
+        if(windowHeight + myScrollTop >= (documentHeight-50)){
+            if(this.showList<this.weekList||this.showList<this.monthList){
+              this.end+=30
+              this.GetLatestDisc()
             // console.log('底部');
+            }else return
         }
     })
   },
@@ -80,9 +84,11 @@ export default {
       let result = await reqGetLatestDisc(this.area);
       console.log("新碟上架", result);
       if (result.weekData) {
+        this.weekList=result.weekData
         this.showList = result.weekData;
         this.showWeek = true;
       } else {
+        this.monthList=result.monthData
         this.showList = result.monthData.slice(0, this.end);
         this.showWeek = false;
       }
@@ -90,6 +96,7 @@ export default {
   },
   watch: {
     classify() {
+      this.end=60
       this.GetLatestDisc();
     },
   },
@@ -101,12 +108,16 @@ export default {
   display: flex;
   padding-bottom: 110px;
   .disc_left {
-    width: 50px;
+    width: 50px !important;
     font-size: 26px;
     margin-right: 20px;
     position: relative;
     p {
       margin: 0;
+    }
+    .p4{
+      width: 50px;
+      text-align: center;
     }
     .p1 {
       margin-top: 15px;

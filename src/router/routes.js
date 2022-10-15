@@ -63,6 +63,9 @@ export default [{
     path:'detailcollect',
     component:()=>import('@/views/PlayListDetail/DetailCollect')
   }]
+},{
+  path:'/search',
+  component:()=>import('@/views/Search/Search.vue')
 },
 // 一级路由的重定向
 {
